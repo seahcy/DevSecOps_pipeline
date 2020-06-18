@@ -1,18 +1,5 @@
-FROM ubuntu:16.04
+FROM python:3
 
-MAINTAINER Madhuri Koushik "madhuri@koushik.com"
+ADD test1.py /
 
-RUN apt-get update -y && \
-    apt-get install -y python3-pip python3-dev
-
-COPY ./requirements.txt /requirements.txt
-
-WORKDIR /
-
-RUN pip3 install -r requirements.txt
-
-COPY . /
-
-ENTRYPOINT [ "python3" ]
-
-CMD [ "app/app.py" ]
+CMD [ "python", "./test1.py" ]
