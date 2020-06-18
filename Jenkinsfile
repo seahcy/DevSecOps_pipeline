@@ -1,14 +1,13 @@
 pipeline {
     agent {
         docker {
-            image 'maven:3-alpine'
-            args '-v $HOME/.m2:/root/.m2'
+            image 'python:3.5.1'
         }
     }
     stages {
         stage('Build') {
             steps {
-                sh 'mvn -B'
+                sh 'python --version'
             }
         }
     }
