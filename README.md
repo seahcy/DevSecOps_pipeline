@@ -21,3 +21,6 @@ Step 4: Docker/Jenkins spawn a python container
 
 # Progress
 - Complete setting up a Docker/Jenkins that is able to establish connection to Docker Daemon on host.
+
+# SAST Tools
+- Sonarqube
