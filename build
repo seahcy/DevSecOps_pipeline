@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# installing Docker
+sudo apt-get install docker.io
+
+# install Docker plugin Jenkins
+sudo docker pull jenkins/jenkins
+
+# Giving docker rights
+echo "Creating group named docker"
+sudo groupadd docker
+sudo usermod -aG docker $USER
+sudo chmod 666 /var/run/docker.sock
+sudo systemctl restart docker
+
+sudo bash build_dj
+
+# Creating jenkins volume
+sudo docker run -p 8080:8080 -v /var/run/docker.sock:/var/run/docker.sock --volume jenkins jenkins/jenkins:lts
