@@ -3,6 +3,7 @@
 # Update 
 sudo rm /var/lib/apt/lists/lock
 sudo rm /var/cache/apt/archives/lock
+sudo rm /var/lib/dpkg/lock
 sudo rm /var/lib/dpkg/lock-frontend
 sudo dpkg --configure -a
 sudo apt -y upgrade
@@ -21,10 +22,10 @@ sudo usermod -aG docker $USER
 sudo chmod 666 /var/run/docker.sock
 sudo systemctl restart docker
 
+# create a persistant storage for jenkins
 sudo docker volume create jenkins-data
 
-sudo bash build_dj
-
+# install docker into docker jenkins
 docker exec -it -u root jenkins bash
 
 apt-get update && \
@@ -41,5 +42,5 @@ add-apt-repository \
 apt-get update && \
 apt-get -y install docker-ce
 
-# Creating jenkins volume
+# Run Jenkins
 sudo docker run -p 8080:8080 -v jenkins-data:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock --name jenkins jenkins/jenkins:lts
