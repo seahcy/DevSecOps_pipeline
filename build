@@ -16,17 +16,17 @@ sudo apt-get -y install docker.io
 sudo docker pull jenkins/jenkins
 
 # Giving docker rights
-echo "Creating group named docker"
 sudo groupadd docker
 sudo usermod -aG docker $USER
-sudo chmod 666 /var/run/docker.sock
+sudo newgrp docker
+sudo chmod 777 /var/run/docker.sock
 sudo systemctl restart docker
 
 # create a persistant storage for jenkins
 sudo docker volume create jenkins-data
 
 # install docker into docker jenkins
-docker exec -it -u root jenkins bash
+sudo docker exec -it -u root jenkins bash
 
 apt-get update && \
 apt-get -y install apt-transport-https \
@@ -42,5 +42,8 @@ add-apt-repository \
 apt-get update && \
 apt-get -y install docker-ce
 
-# Run Jenkins
+# Run Jenkins for first time.
 sudo docker run -p 8080:8080 -v jenkins-data:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock --name jenkins jenkins/jenkins:lts
+
+# if Jenkins ran before, open it.
+sudo docker start jenkins
