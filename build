@@ -1,5 +1,13 @@
 #!/bin/bash
 
+# Update 
+sudo rm /var/lib/apt/lists/lock
+sudo rm /var/cache/apt/archives/lock
+sudo rm /var/lib/dpkg/lock
+sudo dpkg --configure -a
+sudo apt upgrade
+sudo apt-get update
+
 # installing Docker
 sudo apt-get install docker.io
 
@@ -13,7 +21,9 @@ sudo usermod -aG docker $USER
 sudo chmod 666 /var/run/docker.sock
 sudo systemctl restart docker
 
+sudo docker volume create jenkins-data
+
 sudo bash build_dj
 
 # Creating jenkins volume
-sudo docker run -p 8080:8080 -v /var/run/docker.sock:/var/run/docker.sock --volume jenkins jenkins/jenkins:lts
+sudo docker run -p 8080:8080 -v jenkins-data:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock --name jenkins jenkins/jenkins:lts
