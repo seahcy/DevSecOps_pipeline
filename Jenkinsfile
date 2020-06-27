@@ -5,7 +5,7 @@ pipeline {
         
         
          stage('SonarQube analysis') {
-             agent { docker { image 'sonar-scanner:latest' } }
+             agent { docker { image 'sonarqube' } }
              environment {
                 SCANNER_HOME = tool 'SonarScanner'
              }
