@@ -7,7 +7,7 @@ pipeline {
              }
              steps {
                 withSonarQubeEnv('sonarqube') { // If you have configured more than one global server connection, you can specify its name
-                  sh "${SCANNER_HOME}/bin/sonar-scanner -D sonar.login=admin -D sonar.password=admin"
+                  sh "${SCANNER_HOME}/bin/sonar-scanner"
                 }
              }
             
